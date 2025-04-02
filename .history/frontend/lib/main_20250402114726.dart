@@ -32,20 +32,10 @@ class MyHomePage extends StatefulWidget {
 class _MyHomePageState extends State<MyHomePage> {
   String _message = 'Warte auf Server-Antwort...';
 
-  // Dynamische Backend-URL basierend auf der Umgebung
-  String get _backendUrl {
-    // Wenn wir im Browser sind, verwenden wir localhost
-    if (Uri.base.host == 'localhost' || Uri.base.host == '127.0.0.1') {
-      return 'http://localhost:3000';
-    }
-    // Ansonsten verwenden wir den Docker-Service-Namen
-    return 'http://backend:3000';
-  }
-
   Future<void> _testConnection() async {
     try {
       final response = await http.get(
-        Uri.parse('$_backendUrl/api/test'),
+        Uri.parse('http://backend:3000/api/test'),
       );
       if (response.statusCode == 200) {
         final data = json.decode(response.body);
