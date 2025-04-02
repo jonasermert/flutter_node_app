@@ -13,7 +13,6 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       title: 'Flutter Node App',
-      debugShowCheckedModeBanner: false,
       theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
       home: const MyHomePage(title: 'Flutter Node App'),
     );
@@ -54,15 +53,10 @@ class _MyHomePageState extends State<MyHomePage> {
     }
   }
 
-  void _resetConnection() {
-    setState(() {
-      _message = 'Warte auf Server-Antwort...';
-    });
-  }
-
   @override
   Widget build(BuildContext context) {
     return Scaffold(
+      debug
       appBar: AppBar(
         backgroundColor: Theme.of(context).colorScheme.inversePrimary,
         title: Text(widget.title),
@@ -78,25 +72,9 @@ class _MyHomePageState extends State<MyHomePage> {
             const SizedBox(height: 20),
             Text(_message, style: const TextStyle(fontSize: 16)),
             const SizedBox(height: 20),
-            Row(
-              mainAxisAlignment: MainAxisAlignment.center,
-              children: [
-                ElevatedButton.icon(
-                  onPressed: _testConnection,
-                  icon: const Icon(Icons.refresh),
-                  label: const Text('Verbindung testen'),
-                ),
-                const SizedBox(width: 16),
-                ElevatedButton.icon(
-                  onPressed: _resetConnection,
-                  icon: const Icon(Icons.arrow_back),
-                  label: const Text('Zurücksetzen'),
-                  style: ElevatedButton.styleFrom(
-                    backgroundColor: Colors.grey[300],
-                    foregroundColor: Colors.black87,
-                  ),
-                ),
-              ],
+            ElevatedButton(
+              onPressed: _testConnection,
+              child: const Text('Verbindung testen'),
             ),
           ],
         ),
